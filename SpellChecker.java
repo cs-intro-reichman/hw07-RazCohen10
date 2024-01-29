@@ -51,9 +51,16 @@ public class SpellChecker {
 
 	public static String spellChecker(String word, int threshold, String[] dictionary) {
 		String mostSimilarWord = word;
+		boolean isInThreshold = false;
 		for (int i = 0; i < dictionary.length; i++)
 		{
-			if(levenshtein(word, dictionary[i]) <= threshold)
+			if(levenshtein(word, dictionary[i]) <= threshold && !isInThreshold)
+			{
+				mostSimilarWord = dictionary[i];
+				threshold = levenshtein(word, dictionary[i]);
+				isInThreshold = true;
+			}
+			else if (levenshtein(word, dictionary[i]) < threshold && isInThreshold)
 			{
 				mostSimilarWord = dictionary[i];
 				threshold = levenshtein(word, dictionary[i]);
