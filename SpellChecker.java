@@ -11,11 +11,29 @@ public class SpellChecker {
 	}
 
 	public static String tail(String str) {
-		// Your code goes here
+		return str.substring(1);
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		// Your code goes here
+		String lowerCaseWord1 = word1.toLowerCase();
+		String lowerCaseWord2 = word2.toLowerCase();
+
+		if (lowerCaseWord2.length() == 0)
+		{
+			return lowerCaseWord1.length();
+		}
+		else if (lowerCaseWord1.length() == 0)
+		{
+			return lowerCaseWord2.length();
+		}
+		else if (lowerCaseWord1.charAt(0) == lowerCaseWord2.charAt(0))
+		{
+			return levenshtein(tail(lowerCaseWord1), tail(lowerCaseWord2));
+		}
+		else
+		{
+			return 1 + Math.min(Math.min(levenshtein(tail(lowerCaseWord1), lowerCaseWord2), levenshtein(lowerCaseWord1, tail(lowerCaseWord2))), levenshtein(tail(lowerCaseWord1), tail(lowerCaseWord2)));
+		}
 	}
 
 	public static String[] readDictionary(String fileName) {
@@ -23,13 +41,26 @@ public class SpellChecker {
 
 		In in = new In(fileName);
 
-		// Your code here
+		for (int i = 0; i < dictionary.length; i++)
+		{
+			dictionary[i] = in.readString();
+		}
 
 		return dictionary;
 	}
 
 	public static String spellChecker(String word, int threshold, String[] dictionary) {
-		// Your code goes here
+		String mostSimilarWord = word;
+		for (int i = 0; i < dictionary.length; i++)
+		{
+			if(levenshtein(word, dictionary[i]) <= threshold)
+			{
+				mostSimilarWord = dictionary[i];
+				threshold = levenshtein(word, dictionary[i]);
+			}
+		}
+
+		return mostSimilarWord;
 	}
 
 }
