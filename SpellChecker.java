@@ -15,24 +15,24 @@ public class SpellChecker {
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		String lowerCaseWord1 = word1.toLowerCase();
-		String lowerCaseWord2 = word2.toLowerCase();
+		word1 = word1.toLowerCase();
+		word2 = word2.toLowerCase();
 
-		if (lowerCaseWord2.length() == 0)
+		if (word2.length() == 0)
 		{
-			return lowerCaseWord1.length();
+			return word1.length();
 		}
-		else if (lowerCaseWord1.length() == 0)
+		else if (word1.length() == 0)
 		{
-			return lowerCaseWord2.length();
+			return word2.length();
 		}
-		else if (lowerCaseWord1.charAt(0) == lowerCaseWord2.charAt(0))
+		else if (word1.charAt(0) == word2.charAt(0))
 		{
-			return levenshtein(tail(lowerCaseWord1), tail(lowerCaseWord2));
+			return levenshtein(tail(word1), tail(word2));
 		}
 		else
 		{
-			return 1 + Math.min(Math.min(levenshtein(tail(lowerCaseWord1), lowerCaseWord2), levenshtein(lowerCaseWord1, tail(lowerCaseWord2))), levenshtein(tail(lowerCaseWord1), tail(lowerCaseWord2)));
+			return 1 + Math.min(Math.min(levenshtein(tail(word1), word2), levenshtein(word1, tail(word2))), levenshtein(tail(word1), tail(word2)));
 		}
 	}
 

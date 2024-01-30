@@ -39,15 +39,15 @@ public class HashTagTokenizer {
             return;
         }
 
-		String lowerCaseHashtag = hashtag.toLowerCase();
+		hashtag = hashtag.toLowerCase();
  
-        int N = lowerCaseHashtag.length();
+        int N = hashtag.length();
 
         for (int i = 1; i <= N; i++) {
-			if (existInDictionary(lowerCaseHashtag.substring(0, i), dictionary))
+			if (existInDictionary(hashtag.substring(0, i), dictionary))
 			{
-				System.out.println(lowerCaseHashtag.substring(0, i));
-				breakHashTag(lowerCaseHashtag.substring(i), dictionary);
+				System.out.println(hashtag.substring(0, i));
+				breakHashTag(hashtag.substring(i), dictionary);
 				return;
 			}
         }
